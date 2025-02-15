@@ -9,6 +9,10 @@ EasyEstoque is a backend system designed for inventory management tailored for s
 - **Supplier Management**: Maintain a database of suppliers and their products.
 - **Reporting**: Generate reports on inventory status, sales, and more.
 
+## Technologies
+- **Java 21**
+- **Spring Boot**
+
 ## Contact
 
 For any questions or inquiries, please contact [juulhao@gmail.com](mailto:juulhao@gmail.com).
