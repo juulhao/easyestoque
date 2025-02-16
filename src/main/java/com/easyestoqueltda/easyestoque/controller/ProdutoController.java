@@ -3,6 +3,9 @@ package com.easyestoqueltda.easyestoque.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +30,7 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    @GetMapping
+    @GetMapping("/{productName}")
     public ResponseEntity<List<ProdutoModel>> getProduto(@RequestParam String productName) {
         List<ProdutoModel> produtos = produtoService.findProductsByName(productName);
         if (produtos.isEmpty()) {
@@ -61,6 +64,14 @@ public class ProdutoController {
     public ResponseEntity<ProdutoModel> updateProduct(@PathVariable Long id, @RequestBody DTOCreateProductRequest produtoRequest) {
         ProdutoModel produto = produtoService.updateProduct(id, produtoRequest);
         return ResponseEntity.ok().body(produto);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Page<ProdutoModel>> getAllProdutos(
+            @PageableDefault(size = 10, sort = "id") Pageable pageable
+    ) {
+        Page<ProdutoModel> produtos = produtoService.findAll(pageable);
+        return ResponseEntity.ok().body(produtos);
     }
 
 }
